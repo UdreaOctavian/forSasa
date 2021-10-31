@@ -1,28 +1,27 @@
 import React, { useState } from 'react'
-import { useHistory } from 'react-router'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
+import { useHistory } from "react-router-dom";
 import './App.css'
 import AdminPage from './AdminPage'
 
 function App() {
 
-    const history = useHistory()
+    const history = useHistory();
 
-    const [ username, setUsername ] = useState("")
-    const [ password, setPassword ] = useState("")
-    const [ role, setRole ] = useState("")
+    const [ username, setUsername ] = useState("");
+    const [ password, setPassword ] = useState("");
 
     const updateUsername = event => {
         setUsername(event.target.value)
-    }
+    };
 
     const updatePassword = event => {
         setPassword(event.target.value)
-    }
+    };
 
     const login = () => {
-        
-        const fetchURL = `user/login`
+
+        const fetchURL = `user/login`;
 
         const requestOptions = {
             method: 'POST',
@@ -33,8 +32,7 @@ function App() {
         fetch(fetchURL, requestOptions)
             .then(response => response.json())
             .then(response => {
-                console.log(response)
-                setRole(response.userRole)
+                console.log(response);
                 if (response.userRole === "ROLE_ADMIN") {
                     history.push('/admin')
                 } else if (response.userRole === "ROLE_USER") {
@@ -47,22 +45,20 @@ function App() {
     }
 
     return (
-        <BrowserRouter>
+
             <Switch>
                 <Route path='/' exact>
                     <div className="main-page">
                         <div className="login-wrapper">
                             <div>Username</div>
-                            <input 
+                            <input
                                 name="username"
-                                // value={email}
                                 onChange={updateUsername}
                             />
                             <div>Password</div>
-                            <input 
-                                type="password" 
+                            <input
+                                type="password"
                                 name="password"
-                                // value={password}
                                 onChange={updatePassword}
                             />
                             <div className="btns-wrapper">
@@ -77,11 +73,10 @@ function App() {
                 </Route>
                 <Route path='/user'  >
                     <div>
-                        user page
+                        User page - Nothing to see here
                     </div>
                 </Route>
             </Switch>
-        </BrowserRouter>
     )
 }
 
