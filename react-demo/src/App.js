@@ -5,6 +5,7 @@ function App() {
 
     const [ username, setUsername ] = useState("")
     const [ password, setPassword ] = useState("")
+    const [ role, setRole ] = useState("")
 
     const updateUsername = event => {
         setUsername(event.target.value)
@@ -28,6 +29,12 @@ function App() {
             .then(response => response.json())
             .then(response => {
                 console.log(response)
+                setRole(response.userRole)
+                if (response.userRole === "ROLE_ADMIN") {
+
+                } else if (response.userRole === "ROLE_USER") {
+
+                }
             })
             .catch(function(error) {
                 console.log(error)
